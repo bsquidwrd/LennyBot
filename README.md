@@ -6,8 +6,6 @@ A stupid and simple bot to supply easy access to the face of Lenny.
 
 * This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py), you'll need to set that up for this bot to work.
 
-* 
-
 ## Usage
 
 1. Create a bot account using the [discord developer section.](https://discordapp.com/developers/applications/me)
