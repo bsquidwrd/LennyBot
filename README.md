@@ -2,23 +2,23 @@
 A stupid and simple bot to supply easy access to the face of Lenny.
 
 ## Requirements
-*Python (Preferably 3.5+)
+* Python (Preferably 3.5+)
 
-*This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py), you'll need to set that up for this bot to work.
+* This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py), you'll need to set that up for this bot to work.
 
-*Create a bot account using the [discord developer section.](https://discordapp.com/developers/applications/me)
+* 
 
 ## Usage
-Add your bot token in `credentials.py`
 
-Add the bot to your server using the OAUTH url:
-`https://discordapp.com/oauth2/authorize?client_id=BOTCLIENTIDHERE&scope=bot&permissions=0x00002000`
+1. Create a bot account using the [discord developer section.](https://discordapp.com/developers/applications/me)
+2. Add your bot token in `credentials.py`
 
-(If you give the bot permissions to manage messages on your server it will delete the invoking lennyface message.)
+3. Add the bot to your server using the OAUTH url:
+  * `https://discordapp.com/oauth2/authorize?client_id=BOTCLIENTIDHERE&scope=bot&permissions=0x00002000`
+  * (If you give the bot permissions to manage messages on your server it will delete the invoking lennyface message.)
+  * :exclamation: Make sure to insert your bots client ID in the url.
 
-:exclamation: Make sure to insert your bots client ID in the url.
-
-Start the bot using `python LennyBot.py`.
+4. Start the bot using `python LennyBot.py`.
 
 ### Extra bits
 Thanks to Rapptz for the discord.py wrapper.
