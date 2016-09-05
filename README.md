@@ -1,6 +1,8 @@
 # LennyBot ( ͡° ͜ʖ ͡°)
 A stupid and simple bot to supply easy access to the face of Lenny.
 
+If you want to add Lenny to your server without running from source click [here.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
+
 ## Requirements
 * Python (Preferably 3.5+)
 
