@@ -1,10 +1,14 @@
 # LennyBot ( ͡° ͜ʖ ͡°)
+
+[<img src="https://img.shields.io/badge/discord-py-blue.svg">](https://github.com/Rapptz/discord.py) [<img src="https://discordapp.com/api/guilds/141694252361973770/widget.png?style=shield">](https://discord.gg/0n4QSS0mmQNtD5Ve)  
+
 A stupid and simple bot to supply easy access to the face of Lenny.
 
-If you want to add Lenny to your server without running from source click [here.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
+## [Add Lenny to your server.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
+
 
 The bot is triggered by the phrase `lennyface` and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
-The message is only deleted if the only text present is `lennyface`.
+The message is deleted if the only text present is `lennyface`.
 
 ## Requirements
 * Python (Preferably 3.5+)
