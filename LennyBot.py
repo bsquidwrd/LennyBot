@@ -21,4 +21,14 @@ async def on_message(message):
             except Exception as e:
                 print(e)
 
+    if message.channel.is_private:
+        if message.author.id == credentials.owner:
+            if 'servers' in message.content:
+                numServers = 0
+                for server in client.servers:
+                    numServers+=1
+
+                await client.send_message(message.channel, str(numServers) + ' servers.')
+
+
 client.run(credentials.token)
