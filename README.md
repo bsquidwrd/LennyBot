@@ -10,6 +10,8 @@ A stupid and simple bot to supply easy access to the face of Lenny.
 The bot is triggered by the phrase `lennyface` and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
 The message is deleted if the only text present is `lennyface`.
 
+![alt text](https://dl.dropboxusercontent.com/u/26484094/PERMANANT/lennyface.gif)
+
 ## Run the bot yourself
 ### Requirements
 * Python (Preferably 3.5+)
