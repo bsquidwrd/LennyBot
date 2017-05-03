@@ -12,6 +12,8 @@ The message is deleted if the only text present is `lennyface`.
 
 ![alt text](https://dl.dropboxusercontent.com/u/26484094/PERMANANT/lennyface.gif)
 
+The bot won't have any additional commands or features added other than just posting lennyface. I wont add different versions of lenny either.
+
 ## Run the bot yourself
 ### Requirements
 * Python (Preferably 3.5+)
