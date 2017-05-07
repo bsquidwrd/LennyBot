@@ -7,7 +7,7 @@ A stupid and simple bot to supply easy access to the face of Lenny.
 ## :heavy_plus_sign: [Add Lenny to your server.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
 
 
-The bot is triggered by the phrase `lennyface` and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
+The bot is triggered by the phrase `lennyface` or @Lenny and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
 The message is deleted if the only text present is `lennyface`.
 
 ![alt text](https://dl.dropboxusercontent.com/u/26484094/PERMANANT/lennyface.gif)
