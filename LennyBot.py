@@ -40,7 +40,7 @@ class LennyBot(commands.AutoShardedBot):
         if not hasattr(self, 'uptime'):
             self.uptime = datetime.datetime.utcnow()
 
-        self.task_runner = self.loop.create_task(self.bot_status_changer())
+        self.loop.create_task(self.bot_status_changer())
         self.log_channel = discord.utils.get(self.get_all_channels(), id=logChannel)
 
         print('Logged in as')
@@ -79,8 +79,8 @@ class LennyBot(commands.AutoShardedBot):
 
 
     async def bot_status_changer(self):
-        try:
-            while not self.is_closed:
+        while not self.is_closed():
+            try:
                 if self.currentStatus == 0:
                     game_message = '@Lenny'
                 if self.currentStatus == 1:
@@ -98,9 +98,11 @@ class LennyBot(commands.AutoShardedBot):
                 if self.currentStatus >= 4:
                     self.currentStatus = 0
 
-                await asyncio.sleep(20) # task runs every 20 seconds
-        except asyncio.CancelledError as e:
-            pass
+                await asyncio.sleep(20)
+            except asyncio.CancelledError as e:
+                pass
+            except Exception as e:
+                print(e)
 
 
     async def on_message(self, message):
