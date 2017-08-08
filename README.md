@@ -1,6 +1,6 @@
 # LennyBot ( ͡° ͜ʖ ͡°)
 
-[<img src="https://img.shields.io/badge/discord-py-blue.svg">](https://github.com/Rapptz/discord.py) [<img src="https://discordapp.com/api/guilds/141694252361973770/widget.png?style=shield">](https://discord.gg/0n4QSS0mmQNtD5Ve)  
+[<img src="https://img.shields.io/badge/discord-py-blue.svg">](https://github.com/Rapptz/discord.py) [<img src="https://discordapp.com/api/guilds/141694252361973770/widget.png?style=shield">](https://discord.gg/nwYjRz4)  
 
 A stupid and simple bot to supply easy access to the face of Lenny.
 
@@ -13,7 +13,7 @@ The message is deleted if the only text present is `lennyface`.
 ## Requirements
 * Python (Preferably 3.5+)
 
-* This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py), you'll need to set that up for this bot to work.
+* This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py/tree/rewrite), you'll need to set that up for this bot to work.
 
 ## Usage
 
@@ -30,4 +30,4 @@ The message is deleted if the only text present is `lennyface`.
 ### Extra bits
 Thanks to Rapptz for the discord.py wrapper.
 
-If you want any help feel free to join my [testing server](https://discord.gg/0n4QSS0mmQNtD5Ve) and message me.
+If you want any help feel free to join my [testing server](https://discord.gg/nwYjRz4) and message me.
