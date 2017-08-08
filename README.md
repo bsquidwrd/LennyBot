@@ -4,23 +4,18 @@
 
 A stupid and simple bot to supply easy access to the face of Lenny.
 
-## :heavy_plus_sign: [Add Lenny to your server.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
+## [Add Lenny to your server.](https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000)
 
 
-The bot is triggered by the phrase `lennyface` or @Lenny and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
+The bot is triggered by the phrase `lennyface` and simply posts ( ͡° ͜ʖ ͡°) in the chat and deletes the invoking message.
 The message is deleted if the only text present is `lennyface`.
 
-![alt text](https://dl.dropboxusercontent.com/u/26484094/PERMANANT/lennyface.gif)
-
-The bot won't have any additional commands or features added other than just posting lennyface. I wont add different versions of lenny either.
-
-## Run the bot yourself
-### Requirements
+## Requirements
 * Python (Preferably 3.5+)
 
 * This bot uses the [discord.py API wrapper](https://github.com/Rapptz/discord.py), you'll need to set that up for this bot to work.
 
-### Usage
+## Usage
 
 1. Create a bot account using the [discord developer section.](https://discordapp.com/developers/applications/me)
 2. Add your bot token in `credentials.py`
@@ -32,7 +27,7 @@ The bot won't have any additional commands or features added other than just pos
 
 4. Start the bot using `python LennyBot.py`.
 
-#### Extra bits
+### Extra bits
 Thanks to Rapptz for the discord.py wrapper.
 
 If you want any help feel free to join my [testing server](https://discord.gg/0n4QSS0mmQNtD5Ve) and message me.
