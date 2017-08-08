@@ -42,6 +42,7 @@ class LennyBot(commands.AutoShardedBot):
 
         self.loop.create_task(self.bot_status_changer())
         self.log_channel = discord.utils.get(self.get_all_channels(), id=logChannel)
+        await self.update()
 
         print('Logged in as')
         print(self.user.name)
@@ -74,7 +75,7 @@ class LennyBot(commands.AutoShardedBot):
         }
 
         url = '{0}/bots/{1.user.id}/stats'.format(DISCORD_BOTS_API, self)
-        async with session.post(url, data=payload, headers=headers) as resp:
+        async with self.session.post(url, data=payload, headers=headers) as resp:
             await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
 
 
