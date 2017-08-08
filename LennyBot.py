@@ -77,10 +77,6 @@ class LennyBot(commands.AutoShardedBot):
             await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
 
 
-    def create_game(self, message):
-        return discord.Game(name=message)
-
-
     async def bot_status_changer(self):
         while not self.is_closed:
             if self.currentStatus == 0:
@@ -94,7 +90,7 @@ class LennyBot(commands.AutoShardedBot):
             if self.currentStatus == 3:
                 game_message = 'PM for help/info'
 
-            await self.change_presence(game=game_message)
+            await self.change_presence(game=discord.Game(name=(game_message))
 
             self.currentStatus += 1
             if self.currentStatus >= 4:
