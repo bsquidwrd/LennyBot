@@ -53,13 +53,13 @@ class LennyBot(commands.AutoShardedBot):
         print('resumed...')
 
 
-    async def on_server_join(server):
-        await self.log_channel.send(':heart: Lenny was added to ' + str(server) + ' - ' + str(sum(1 for e in server.members)))
+    async def on_guild_join(guild):
+        await self.log_channel.send(':heart: Lenny was added to {} - {}'.format(str(guild), str(len(guild.members))))
         await self.update()
 
 
-    async def on_server_remove(server):
-        await self.log_channel.send(':broken_heart: Lenny was removed from ' + str(server))
+    async def on_guild_remove(guild):
+        await self.log_channel.send(':broken_heart: Lenny was removed from {}'.format(str(guild)))
         await self.update()
 
 
@@ -109,17 +109,13 @@ class LennyBot(commands.AutoShardedBot):
         if message.author != self.user and not message.author.bot:
             channel = message.channel
             if message.author.id == credentials.owner:
-                servers = []
                 if 'servers' in message.content.lower():
-                    numServers = 0
-                    for server in self.guilds:
-                        numServers+=1
-                        servers.append(server.name)
-
-                    await self.log_channel.send(str(numServers) + ' servers, ' + str(sum(1 for _ in self.get_all_members())) + ' users.')
+                    numServers = len(self.guilds)
+                    numUsers = sum(1 for i in self.get_all_members())
+                    await self.log_channel.send('{} servers, {} users.'.format(str(numServers), str(numUsers)))
 
             if type(channel) != discord.channel.TextChannel:
-                await self.log_channel.send(':mailbox_with_mail: ' + message.author.name + ' - ' + message.clean_content)
+                await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
 
                 # with channel.typing():
                 if 'lennyface' in message.content.lower() or self.user.mentioned_in(message) and not message.mention_everyone:
@@ -141,7 +137,7 @@ class LennyBot(commands.AutoShardedBot):
             if 'lennyface' in message.content.lower() or self.user.mentioned_in(message) and not message.mention_everyone:
                 if type(channel) == discord.channel.TextChannel:
                     await channel.send('( ͡° ͜ʖ ͡°)')
-                    await self.log_channel.send('[' + message.author.guild.name + '] ' + message.author.name + ' - ' + message.clean_content)
+                    await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
 
                 if (message.content.lower() == 'lennyface') or (message.content.lower() == self.user.mention):
                     try:
@@ -156,7 +152,7 @@ class LennyBot(commands.AutoShardedBot):
                     f.write(str(value + 1))
 
             elif 'lenny' in message.content.lower():
-                await self.log_channel.send('[' + message.author.server.name + '] ' + message.author.name + ' - ' + message.clean_content)
+                await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
 
 
     async def close(self):
