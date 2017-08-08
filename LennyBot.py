@@ -53,17 +53,17 @@ class LennyBot(commands.AutoShardedBot):
         print('resumed...')
 
 
-    async def on_guild_join(guild):
+    async def on_guild_join(self, guild):
         await self.log_channel.send(':heart: Lenny was added to {} - {}'.format(str(guild), str(len(guild.members))))
         await self.update()
 
 
-    async def on_guild_remove(guild):
+    async def on_guild_remove(self, guild):
         await self.log_channel.send(':broken_heart: Lenny was removed from {}'.format(str(guild)))
         await self.update()
 
 
-    async def update():
+    async def update(self):
         payload = json.dumps({
             'server_count': len(self.guilds)
         })
@@ -142,6 +142,8 @@ class LennyBot(commands.AutoShardedBot):
                 if (message.content.lower() == 'lennyface') or (message.content.lower() == self.user.mention):
                     try:
                         await message.delete()
+                    except discord.Forbidden as e:
+                        pass
                     except Exception as e:
                         print(e)
 
@@ -152,7 +154,10 @@ class LennyBot(commands.AutoShardedBot):
                     f.write(str(value + 1))
 
             elif 'lenny' in message.content.lower():
-                await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+                if type(channel) == discord.channel.TextChannel::
+                    await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+                else:
+                    await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
 
 
     async def close(self):
