@@ -1,16 +1,17 @@
-from discord.ext import commands
-import discord
-import datetime, re
-import json, asyncio
-import copy
-import logging
-import traceback
 import aiohttp
-import os
-import sys
-from collections import Counter
-
+import asyncio
+import copy
 import credentials
+import datetime
+import discord
+import json
+import logging
+import os
+import re
+import sys
+import traceback
+from collections import Counter
+from discord.ext import commands
 
 
 description = """
@@ -78,25 +79,28 @@ class LennyBot(commands.AutoShardedBot):
 
 
     async def bot_status_changer(self):
-        while not self.is_closed:
-            if self.currentStatus == 0:
-                game_message = '@Lenny'
-            if self.currentStatus == 1:
-                game_message = 'lennyface'
-            if self.currentStatus == 2:
-                with open(count_file, 'r+') as f:
-                    value = int(f.read())
-                    game_message = '{} lennys called'.format(str(value))
-            if self.currentStatus == 3:
-                game_message = 'PM for help/info'
+        try:
+            while not self.is_closed:
+                if self.currentStatus == 0:
+                    game_message = '@Lenny'
+                if self.currentStatus == 1:
+                    game_message = 'lennyface'
+                if self.currentStatus == 2:
+                    with open(count_file, 'r+') as f:
+                        value = int(f.read())
+                        game_message = '{} lennys called'.format(str(value))
+                if self.currentStatus == 3:
+                    game_message = 'PM for help/info'
 
-            await self.change_presence(game=discord.Game(name=(game_message))
+                await self.change_presence(game=discord.Game(name=(game_message)))
 
-            self.currentStatus += 1
-            if self.currentStatus >= 4:
-                self.currentStatus = 0
+                self.currentStatus += 1
+                if self.currentStatus >= 4:
+                    self.currentStatus = 0
 
-            await asyncio.sleep(20) # task runs every 20 seconds
+                await asyncio.sleep(20) # task runs every 20 seconds
+        except asyncio.CancelledError as e:
+            pass
 
 
     async def on_message(self, message):
