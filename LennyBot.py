@@ -115,9 +115,8 @@ class LennyBot(commands.AutoShardedBot):
                     await self.log_channel.send('{} servers, {} users.'.format(str(numServers), str(numUsers)))
 
             if type(channel) != discord.channel.TextChannel:
-                await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
+                await self.log(message)
 
-                # with channel.typing():
                 if 'lennyface' in message.content.lower() or self.user.mentioned_in(message) and not message.mention_everyone:
                     await channel.send('( ͡° ͜ʖ ͡°)')
 
@@ -137,7 +136,7 @@ class LennyBot(commands.AutoShardedBot):
             if 'lennyface' in message.content.lower() or self.user.mentioned_in(message) and not message.mention_everyone:
                 if type(channel) == discord.channel.TextChannel:
                     await channel.send('( ͡° ͜ʖ ͡°)')
-                    await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+                    await self.log(message)
 
                 if (message.content.lower() == 'lennyface') or (message.content.lower() == self.user.mention):
                     try:
@@ -155,10 +154,20 @@ class LennyBot(commands.AutoShardedBot):
 
             elif 'lenny' in message.content.lower():
                 if type(channel) == discord.channel.TextChannel:
-                    await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+                    await self.log(message)
                 else:
-                    await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
+                    await self.log(message)
 
+
+    async def log(self, message):
+        """
+        This will be the main function to log things to the `logChannel`
+        Hopefully this will make it so things don't get different formats, it will all be the same.
+        """
+        if type(message.channel) == discord.channel.TextChannel:
+            await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+        else:
+            await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
 
     async def close(self):
         await super().close()
