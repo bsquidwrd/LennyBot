@@ -73,7 +73,7 @@ class LennyBot(commands.AutoShardedBot):
             'content-type': 'application/json'
         }
 
-        url = '{0}/bots/{1.user.id}/stats'.format(DISCORD_BOTS_API, client)
+        url = '{0}/bots/{1.user.id}/stats'.format(DISCORD_BOTS_API, self)
         async with session.post(url, data=payload, headers=headers) as resp:
             await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
 
