@@ -154,7 +154,7 @@ class LennyBot(commands.AutoShardedBot):
                     f.write(str(value + 1))
 
             elif 'lenny' in message.content.lower():
-                if type(channel) == discord.channel.TextChannel::
+                if type(channel) == discord.channel.TextChannel:
                     await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
                 else:
                     await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
