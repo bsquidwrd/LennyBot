@@ -6,6 +6,7 @@ import copy
 import logging
 import traceback
 import aiohttp
+import os
 import sys
 from collections import Counter
 
@@ -16,6 +17,7 @@ description = """
 Hello! I am a bot written by Isk to provide lennyface for your amusement
 """
 
+count_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'count.txt')
 logChannel = credentials.logChannel
 DISCORD_BOTS_API ='https://bots.discord.pw/api'
 dbots_key = credentials.dbots_key
@@ -75,18 +77,24 @@ class LennyBot(commands.AutoShardedBot):
             await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
 
 
+    def create_game(self, message):
+        return discord.Game(name=message)
+
+
     async def bot_status_changer(self):
         while not self.is_closed:
             if self.currentStatus == 0:
-                await self.change_presence(game=discord.Game(name='@Lenny'))
+                game_message = '@Lenny'
             if self.currentStatus == 1:
-                await self.change_presence(game=discord.Game(name='lennyface'))
+                game_message = 'lennyface'
             if self.currentStatus == 2:
-                with open(r'/root/LennyBot/count.txt','r+') as f:
+                with open(count_file, 'r+') as f:
                     value = int(f.read())
-                    await self.change_presence(game=discord.Game(name=str(value) + ' lennys called'))
+                    game_message = '{} lennys called'.format(str(value))
             if self.currentStatus == 3:
-                await self.change_presence(game=discord.Game(name='PM for help/info'))
+                game_message = 'PM for help/info'
+
+            await self.change_presence(game=game_message)
 
             self.currentStatus += 1
             if self.currentStatus >= 4:
@@ -140,7 +148,7 @@ class LennyBot(commands.AutoShardedBot):
                         print(e)
 
                 # Log lenny count
-                with open(r'/root/LennyBot/count.txt','r+') as f:
+                with open(count_file,'r+') as f:
                     value = int(f.read())
                     f.seek(0)
                     f.write(str(value + 1))
