@@ -42,12 +42,12 @@ class LennyBot(commands.AutoShardedBot):
 
         self.loop.create_task(self.bot_status_changer())
         self.log_channel = discord.utils.get(self.get_all_channels(), id=logChannel)
-        await self.update()
 
         print('Logged in as')
         print(self.user.name)
         print(self.user.id)
         print('------')
+        await self.update()
 
 
     async def on_resumed(self):
@@ -66,7 +66,9 @@ class LennyBot(commands.AutoShardedBot):
 
     async def update(self):
         payload = json.dumps({
-            'server_count': len(self.guilds)
+            'server_count': len(self.guilds),
+            'shard_id': self.shard_id,
+            'shard_count': self.shard_count,
         })
 
         headers = {
@@ -75,8 +77,11 @@ class LennyBot(commands.AutoShardedBot):
         }
 
         url = '{0}/bots/{1.user.id}/stats'.format(DISCORD_BOTS_API, self)
-        async with self.session.post(url, data=payload, headers=headers) as resp:
-            await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
+        try:
+            async with self.session.post(url, data=payload, headers=headers) as resp:
+                await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
+        except Exception as e:
+            print(e)
 
 
     async def bot_status_changer(self):
