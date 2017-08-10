@@ -127,16 +127,17 @@ class LennyBot(commands.AutoShardedBot):
                     await channel.send('( ͡° ͜ʖ ͡°)')
 
                 else:
-                    embed = discord.Embed(title = "Invite Lenny:", color = 0xD1526A)
-                    embed.description = "[Click me!]({})".format(invite_url)
-                    avatar = self.user.avatar_url or self.user.default_avatar_url
-                    embed.set_author(name = "Lenny (Discord ID: {})".format(self.user.id), icon_url = avatar)
-                    embed.add_field(name = "Triggers: ", value = "`lennyface`\n{}".format(self.user.mention))
-                    me = discord.utils.get(self.get_all_members(), id=credentials.owner)
-                    avatar = me.default_avatar_url if not me.avatar else me.avatar_url
-                    embed.set_footer(text = "Developer/Owner: {0} (Discord ID: {0.id})".format(me), icon_url = avatar)
-                    await channel.send('', embed = embed)
-                    await channel.send('Support server: https://discord.gg/nwYjRz4')
+                    async with channel.typing():
+                        embed = discord.Embed(title = "Invite Lenny:", color = 0xD1526A)
+                        embed.description = "[Click me!]({})".format(invite_url)
+                        avatar = self.user.avatar_url or self.user.default_avatar_url
+                        embed.set_author(name = "Lenny (Discord ID: {})".format(self.user.id), icon_url = avatar)
+                        embed.add_field(name = "Triggers: ", value = "`lennyface`\n{}".format(self.user.mention))
+                        me = discord.utils.get(self.get_all_members(), id=credentials.owner)
+                        avatar = me.default_avatar_url if not me.avatar else me.avatar_url
+                        embed.set_footer(text = "Developer/Owner: {0} (Discord ID: {0.id})".format(me), icon_url = avatar)
+                        await channel.send('', embed = embed)
+                        await channel.send('Support server: https://discord.gg/nwYjRz4')
 
             ## Lennyface send / delete
             if 'lennyface' in message.content.lower() or self.user.mentioned_in(message) and not message.mention_everyone:
@@ -147,7 +148,7 @@ class LennyBot(commands.AutoShardedBot):
                 if (message.content.lower() == 'lennyface') or (message.content.lower() == self.user.mention):
                     try:
                         await message.delete()
-                    except discord.Forbidden as e:
+                    except discord.errors.Forbidden as e:
                         pass
                     except Exception as e:
                         print(e)
