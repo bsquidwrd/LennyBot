@@ -98,7 +98,8 @@ class LennyBot(commands.AutoShardedBot):
                 if self.currentStatus == 3:
                     game_message = 'PM for help/info'
 
-                await self.change_presence(game=discord.Game(name=(game_message)))
+                lenny_game = discord.Game(name=game_message, url=None, type=0)
+                await self.change_presence(status=discord.Status.online, game=lenny_game)
 
                 self.currentStatus += 1
                 if self.currentStatus >= 4:
@@ -135,7 +136,7 @@ class LennyBot(commands.AutoShardedBot):
                         embed.add_field(name = "Triggers: ", value = "`lennyface`\n{}".format(self.user.mention))
                         me = discord.utils.get(self.get_all_members(), id=credentials.owner)
                         avatar = me.default_avatar_url if not me.avatar else me.avatar_url
-                        embed.set_footer(text = "Developer/Owner: {0} (Discord ID: {0.id})".format(me), icon_url = avatar)
+                        embed.set_footer(text = "Developer/Owner: {0} (Discord ID: {0.id}) - Shard ID: {1}".format(me, self.shard_id), icon_url = avatar)
                         await channel.send('', embed = embed)
                         await channel.send('Support server: https://discord.gg/nwYjRz4')
 
@@ -171,10 +172,13 @@ class LennyBot(commands.AutoShardedBot):
         This will be the main function to log things to the `logChannel`
         Hopefully this will make it so things don't get different formats, it will all be the same.
         """
-        if type(message.channel) == discord.channel.TextChannel:
-            await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
-        else:
-            await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
+        try:
+            if type(message.channel) == discord.channel.TextChannel:
+                await self.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
+            else:
+                await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
+        except Exception as e:
+            print("Failed to log\n{}".format(e))
 
     async def close(self):
         await super().close()
