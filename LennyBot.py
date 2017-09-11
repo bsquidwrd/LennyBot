@@ -25,6 +25,9 @@ dbots_key = credentials.dbots_key
 invite_url = credentials.invite_url
 
 log = logging.getLogger(__name__)
+log.setLevel(logging.INFO)
+handler = logging.StreamHandler()
+log.addHandler(handler)
 
 class LennyBot(commands.AutoShardedBot):
     def __init__(self):
@@ -81,7 +84,7 @@ class LennyBot(commands.AutoShardedBot):
             async with self.session.post(url, data=payload, headers=headers) as resp:
                 await self.log_channel.send('DBots statistics returned {0.status} for {1}'.format(resp, payload))
         except Exception as e:
-            print(e)
+            log.info(e)
 
 
     async def bot_status_changer(self):
@@ -109,7 +112,7 @@ class LennyBot(commands.AutoShardedBot):
             except asyncio.CancelledError as e:
                 pass
             except Exception as e:
-                print(e)
+                log.info(e)
 
 
     async def on_message(self, message):
@@ -152,7 +155,7 @@ class LennyBot(commands.AutoShardedBot):
                     except discord.errors.Forbidden as e:
                         pass
                     except Exception as e:
-                        print(e)
+                        log.info(e)
 
                 # Log lenny count
                 with open(count_file,'r+') as f:
@@ -178,7 +181,7 @@ class LennyBot(commands.AutoShardedBot):
             else:
                 await self.log_channel.send(':mailbox_with_mail: {0.author.name} - {0.clean_content}'.format(message))
         except Exception as e:
-            print("Failed to log\n{}".format(e))
+            log.info("Failed to log\n{}".format(e))
 
     async def close(self):
         await super().close()
@@ -192,3 +195,7 @@ class LennyBot(commands.AutoShardedBot):
 if __name__ == '__main__':
     bot = LennyBot()
     bot.run()
+    handlers = log.handlers[:]
+    for hdlr in handlers:
+        hdlr.close()
+        log.removeHandler(hdlr)
