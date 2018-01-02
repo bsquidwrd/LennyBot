@@ -1,7 +1,6 @@
 import aiohttp
 import asyncio
 import copy
-import credentials
 import datetime
 import discord
 import json
@@ -13,16 +12,20 @@ import traceback
 from collections import Counter
 from discord.ext import commands
 
+try:
+    import credentials
+except:
+    pass
+
 
 description = """
 Hello! I am a bot written by Isk to provide lennyface for your amusement
 """
 
-count_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'count.txt')
-logChannel = credentials.logChannel
+logChannel = int(os.environ['logChannel'])
 DISCORD_BOTS_API ='https://bots.discord.pw/api'
-dbots_key = credentials.dbots_key
-invite_url = credentials.invite_url
+dbots_key = os.environ.get('dbots_key', None)
+invite_url = os.environ['invite_url']
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.INFO)
@@ -34,9 +37,10 @@ class LennyBot(commands.AutoShardedBot):
         super().__init__(command_prefix=None, description=description,
                          pm_help=None, help_attrs=dict(hidden=True))
 
-        self.client_token = credentials.token
+        self.client_token = os.environ['token']
         self.session = aiohttp.ClientSession(loop=self.loop)
         self.currentStatus = 0
+        self.owner_id = int(os.environ['owner'])
 
 
     async def on_ready(self):
@@ -68,6 +72,8 @@ class LennyBot(commands.AutoShardedBot):
 
 
     async def update(self):
+        if dbots_key is None or dbots_key == '':
+            return
         payload = json.dumps({
             'server_count': len(self.guilds),
             'shard_id': self.shard_id,
@@ -95,17 +101,13 @@ class LennyBot(commands.AutoShardedBot):
                 if self.currentStatus == 1:
                     game_message = 'lennyface'
                 if self.currentStatus == 2:
-                    with open(count_file, 'r+') as f:
-                        value = int(f.read())
-                        game_message = '{} lennys called'.format(str(value))
-                if self.currentStatus == 3:
                     game_message = 'PM for help/info'
 
                 lenny_game = discord.Game(name=game_message, url=None, type=0)
                 await self.change_presence(status=discord.Status.online, game=lenny_game)
 
                 self.currentStatus += 1
-                if self.currentStatus >= 4:
+                if self.currentStatus >= 3:
                     self.currentStatus = 0
 
                 await asyncio.sleep(20)
@@ -118,7 +120,7 @@ class LennyBot(commands.AutoShardedBot):
     async def on_message(self, message):
         if message.author != self.user and not message.author.bot:
             channel = message.channel
-            if message.author.id == credentials.owner:
+            if message.author.id == self.owner_id:
                 if 'servers' in message.content.lower():
                     numServers = len(self.guilds)
                     numUsers = sum(1 for i in self.get_all_members())
@@ -137,7 +139,7 @@ class LennyBot(commands.AutoShardedBot):
                         avatar = self.user.avatar_url or self.user.default_avatar_url
                         embed.set_author(name = "Lenny (Discord ID: {})".format(self.user.id), icon_url = avatar)
                         embed.add_field(name = "Triggers: ", value = "`lennyface`\n{}".format(self.user.mention))
-                        me = discord.utils.get(self.get_all_members(), id=credentials.owner)
+                        me = discord.utils.get(self.get_all_members(), id=self.owner_id)
                         avatar = me.default_avatar_url if not me.avatar else me.avatar_url
                         embed.set_footer(text = "Developer/Owner: {0} (Discord ID: {0.id}) - Shard ID: {1}".format(me, self.shard_id), icon_url = avatar)
                         await channel.send('', embed = embed)
@@ -156,12 +158,6 @@ class LennyBot(commands.AutoShardedBot):
                         pass
                     except Exception as e:
                         log.info(e)
-
-                # Log lenny count
-                with open(count_file,'r+') as f:
-                    value = int(f.read())
-                    f.seek(0)
-                    f.write(str(value + 1))
 
             elif 'lenny' in message.content.lower():
                 if type(channel) == discord.channel.TextChannel:
