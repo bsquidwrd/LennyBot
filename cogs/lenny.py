@@ -67,6 +67,8 @@ class Lenny:
         This will be the main function to log things to the `logChannel`
         Hopefully this will make it so things don't get different formats, it will all be the same.
         """
+        if self.bot.log_channel is None:
+            return
         try:
             if type(message.channel) == discord.channel.TextChannel:
                 await self.bot.log_channel.send('[{0.author.guild.name}] {0.author.name} - {0.clean_content}'.format(message))
