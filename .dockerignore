@@ -1,8 +1,6 @@
 credentials.py
+.dist/
 __pycache__/
 env/
-run.sh
 count.txt
-*.old.*
-.vscode/
-.dist/
+run.sh
