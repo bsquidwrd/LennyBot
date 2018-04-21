@@ -26,7 +26,7 @@ class Status:
                     game_message = 'PM for help/info'
 
                 lenny_game = discord.Game(name=game_message, url=None, type=0)
-                await self.bot.change_presence(status=discord.Status.online, game=lenny_game)
+                await self.bot.change_presence(status=discord.Status.online, activity=lenny_game)
 
                 self.currentStatus += 1
                 if self.currentStatus >= 3:

@@ -14,12 +14,11 @@ RUN pip install --no-cache-dir -r /requirements.txt
 ADD . /code/
 
 # Add any custom, static environment variables needed by Django or your settings file here:
-ENV CLIENT_ID=''
-ENV CLIENT_TOKEN=''
-ENV OWNER_ID='124849074053578755'
-ENV DBOTS_KEY=''
-ENV INVITE_URL=''
-ENV LOG_CHANNEL=''
+ENV token=''
+ENV owner='124849074053578755'
+ENV dbots_key=''
+ENV invite_url='https://discordapp.com/oauth2/authorize?client_id=193179442665750528&scope=bot&permissions=0x00002000'
+ENV logChannel=''
 
 # Start Bot
 CMD ["python", "/code/LennyBot.py"]

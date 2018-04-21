@@ -6,3 +6,4 @@ count.txt
 *.old.*
 .vscode/
 .dist/
+dev.env

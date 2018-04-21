@@ -4,3 +4,4 @@ __pycache__/
 env/
 count.txt
 run.sh
+dev.env
