@@ -102,7 +102,7 @@ class LennyBot(commands.AutoShardedBot):
 
     async def close(self):
         await super().close()
-        await self.session.close()
+        #await self.session.close()
 
 
     def run(self):
