@@ -44,7 +44,7 @@ class LennyBot(commands.AutoShardedBot):
     def __init__(self):
         super().__init__(command_prefix=_prefix_callable, description=description, pm_help=None, help_attrs=dict(hidden=True))
 
-        self.session = aiohttp.ClientSession(loop=self.loop)
+        #self.session = aiohttp.ClientSession(loop=self.loop)
         self.client_token = os.environ['token']
         self.bots_key = os.environ.get('dbots_key', None)
         self.invite_url = os.environ['invite_url']
